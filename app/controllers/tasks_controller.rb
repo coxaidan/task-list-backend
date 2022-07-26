@@ -50,10 +50,7 @@ class TasksController < ApplicationController
     end
 
     def get_user_from_token
-      headerTest = request.headers['Authorization']
-      p headerTest
-
-      jwt_payload = JWT.decode(headerTest.split(' ')[1],
+      jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1],
                                Rails.application.credentials.devise[:jwt_secret_key]).first
       user_id = jwt_payload['sub']
       User.find(user_id.to_s)
