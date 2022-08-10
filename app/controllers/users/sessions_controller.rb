@@ -4,10 +4,6 @@ class Users::SessionsController < Devise::SessionsController
     private
   
     def respond_with(_resource, _opts = {})
-      # render json: {
-      #   message: 'You are logged in.',
-      #   user: current_user
-      # }, status: :ok
       log_in_success && return if current_user
   
       log_in_failure
@@ -32,7 +28,7 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     def log_in_failure
-      render json: { message: 'Incorrect email or password.', user: current_user}, status: :unauthorized
+      render json: { message: 'Unsucessful login.', user: current_user}, status: :unauthorized
     end
 
   end

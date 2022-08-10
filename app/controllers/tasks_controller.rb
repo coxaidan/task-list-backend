@@ -46,12 +46,14 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:name, :description, :user_id, :completed, :important)
+      params.require(:task).permit(:name, :description, :user_id, :completed, :important, :due_date)
     end
 
     def get_user_from_token
       jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1],
                                Rails.application.credentials.devise[:jwt_secret_key]).first
+      puts "----------------------------------------------------------"
+      puts jwt_payload
       user_id = jwt_payload['sub']
       User.find(user_id.to_s)
     end
